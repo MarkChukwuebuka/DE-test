@@ -23,7 +23,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          tags: mc/invoice_processor
+          tags: markchukwuebuka/invoice_processor
           push: true
           file: Dockerfile
           cache-from: type=gha
