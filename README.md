@@ -20,5 +20,21 @@ A robust system for processing invoice data with PostgreSQL, FastAPI, and Docker
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/invoice-processing.git
+   git clone https://github.com/MarkChukwuebuka/DE-test.git
    cd invoice-processing
+   
+2. Make Sure you have docker installed and set up, then start up the system:
+   ```bash
+   docker-compose up -d --build
+
+3. Load the sample data:
+   ```bash
+   docker-compose exec web python src/data_loader.py
+
+4. View the API endpoints/documentation at:
+   ```bash
+   http://localhost:8000/docs
+
+5. Run tests
+   ```bash
+   docker-compose exec web pytest tests/ -v
