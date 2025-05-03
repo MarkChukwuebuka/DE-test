@@ -34,5 +34,4 @@ class Database:
             finally:
                 cursor.close()
 
-# Singleton database instance
 database = Database()
