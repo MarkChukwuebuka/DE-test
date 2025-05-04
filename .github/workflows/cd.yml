@@ -40,5 +40,12 @@ jobs:
             sleep 10
           
             sudo docker compose ps
-            sudo docker compose exec web python src/data_loader.py
+            for i in {1..5}; do
+              if sudo docker compose exec web python src/data_loader.py; then
+                break
+              else
+                echo "Retrying in 5s..."
+                sleep 5
+              fi
+            done
           EOF
