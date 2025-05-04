@@ -19,14 +19,16 @@ jobs:
           echo "${{ secrets.EC2_SSH_KEY }}" > key.pem
           chmod 600 key.pem
 
-      - name: Copy docker-compose.yml to EC2
-        run: |
-          scp -i key.pem -o StrictHostKeyChecking=no -P ${{ secrets.EC2_PORT }} docker-compose.yml ${{ secrets.EC2_HOST }}:~/docker-compose.yml
+#      - name: Copy docker-compose.yml to EC2
+#        run: |
+#          scp -i key.pem -o StrictHostKeyChecking=no -P ${{ secrets.EC2_PORT }} docker-compose.yml ${{ secrets.EC2_HOST }}:~/docker-compose.yml
 
       - name: Deploy using Docker Compose on EC2
         run: |
           ssh -i key.pem -o StrictHostKeyChecking=no -p ${{ secrets.EC2_PORT }} ${{ secrets.EC2_HOST }} << 'EOF'
-            sudo docker pull markchukwuebuka/invoice_processor:latest
-            sudo docker compose -f ~/docker-compose.yml down
-            sudo docker compose -f ~/docker-compose.yml up -d
+            cd DE-test
+            git pull
+            sudo docker compose -f docker-compose.yml up -d
+            sleep 5
+            sudo docker compose exec web python src/data_loader.py
           EOF
