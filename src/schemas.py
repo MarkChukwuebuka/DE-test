@@ -36,6 +36,7 @@ class LineItem(LineItemBase):
     class Config:
         orm_mode = True
 
+
 class CategoryReport(BaseModel):
     category: str
     item_count: int
