@@ -13,6 +13,7 @@ class Invoice:
     total: float
     invoice_date: date
 
+
 @dataclass
 class LineItem:
     id: int
