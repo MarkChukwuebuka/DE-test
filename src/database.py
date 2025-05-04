@@ -3,6 +3,7 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 from contextlib import contextmanager
 
+
 class Database:
     def __init__(self):
         self.conn_params = {
