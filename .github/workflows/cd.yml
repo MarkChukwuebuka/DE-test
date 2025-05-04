@@ -26,9 +26,19 @@ jobs:
       - name: Deploy using Docker Compose on EC2
         run: |
           ssh -i key.pem -o StrictHostKeyChecking=no -p ${{ secrets.EC2_PORT }} ${{ secrets.EC2_HOST }} << 'EOF'
-            cd DE-test
-            git pull
+            REPO_DIR="DE-test"
+            if [ ! -d "$REPO_DIR" ]; then
+              git clone https://github.com/MarkChukwuebuka/DE-test.git
+            fi
+          
+            cd "$REPO_DIR"
+            git pull origin main
+          
             sudo docker compose -f docker-compose.yml up -d
-            sleep 5
+          
+            echo "Waiting for web service to be healthy..."
+            sleep 10
+          
+            sudo docker compose ps
             sudo docker compose exec web python src/data_loader.py
           EOF
